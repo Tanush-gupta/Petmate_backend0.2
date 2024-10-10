@@ -19,8 +19,10 @@ app.use(express.static("public"));
 
 // Routes imports
 import userRoutes from "./routes/user.routes.js";
+import petRoutes from "./routes/pet.routes.js"
 
 // Routes declaration
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/pet",petRoutes);
 
 export { app };

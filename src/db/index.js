@@ -7,6 +7,7 @@ const connectDB = async () => {
     } catch (error) {
         console.error('MONG~ODB connection error', error);
         process.exit(1);
+
     }
 }
-export default connectDB;
+export default connectDB;   mongoose

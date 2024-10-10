@@ -3,6 +3,7 @@ import  User from "../models/User.model.js"
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
+
 const registerUser = asyncHandler(async (req, res, next) => {
     const { name, email, password } = req.body;
     const existedUser = await User.findOne({email});
@@ -22,8 +23,6 @@ const registerUser = asyncHandler(async (req, res, next) => {
     const response = new ApiResponse(201,user,'User registered successfully');
     return res.status(201).json(response);
 });
-
-
 
 
 export { registerUser };

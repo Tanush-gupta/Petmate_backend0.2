@@ -6,12 +6,16 @@ const PetSchema = new mongoose.Schema({
         required: true 
     },
     age: { 
-        type: Number,
+        type: String,
         required: true 
     },
     breed: 
     { type: String,
       required: true 
+    },
+    weight: { 
+        type: String, 
+        required: true 
     },
     about: {
         type: String,
@@ -21,9 +25,19 @@ const PetSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    category: {
+        type: String,
+        required: true,
+    },
+    address: {
+        type: String,
+        required: true,
+    },
     owner: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: "User" 
+        // type: String,
+        // required: true,
     },
     createdAt: { 
         type: Date, 
