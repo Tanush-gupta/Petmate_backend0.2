@@ -24,4 +24,38 @@ const registerUser = asyncHandler(async (req, res, next) => {
   return res.status(201).json(response);
 });
 
-export { registerUser };
+const addtoFavourite = asyncHandler(async (req, res) => {
+  const { userId, petId } = req.body;
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new ApiError(404, "User not found");
+  }
+  user.favourites.push(petId);
+  await user.save();
+  const response = new ApiResponse(200, user, "Pet added to favourite");
+  return res.status(200).json(response);
+});
+
+const removefromFavourite = asyncHandler(async (req, res) => {
+  const { userId, petId } = req.body;
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new ApiError(404, "User not found");
+  }
+  user.favourites = user.favourites.filter((id) => id !== petId);
+  await user.save();
+  const response = new ApiResponse(200, user, "Pet removed from favourite");
+  return res.status(200).json(response);
+});
+
+const getFavourites = asyncHandler(async (req, res) => {
+  const { userId } = req.body;
+  const user =
+    (await User.findById(userId).populate("favourites").select("favourites")) ||
+    [];
+
+  const response = new ApiResponse(200, user, "Favourite pets fetched");
+  return res.status(200).json(response);
+});
+
+export { registerUser, addtoFavourite, removefromFavourite, getFavourites };
