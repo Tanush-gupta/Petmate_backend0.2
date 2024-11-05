@@ -3,8 +3,10 @@ import { ApiError } from "../utils/ApiError.js";
 import Message from "../models/Message.model.js";
 import Chat from "../models/Chat.model.js";
 import User from "../models/User.model.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 
 const addMessage = asyncHandler(async (req, res) => {
+  console.log("sending message");
   const { message, senderId, receiverId } = req.body;
   if (!message || !senderId || !receiverId) {
     throw new ApiError(400, "All fields are required");
@@ -33,7 +35,7 @@ const addMessage = asyncHandler(async (req, res) => {
     await chat.save();
   }
 
-  res.status(201).json({ message: "Message sent successfully" });
+  res.status(201).json(new ApiResponse(201, "Message sent", newMessage));
 });
 
 const getAllMessages = asyncHandler(async (req, res) => {
@@ -48,9 +50,9 @@ const getAllMessages = asyncHandler(async (req, res) => {
   }).populate("messages");
 
   if (!chat) {
-    throw new ApiError(404, "Chat not found");
+    // throw new ApiError(404, "Chat not found");
+    return new ApiResponse(301, "Chat not found");
   }
-
   res.status(200).json({ messages: chat.messages });
 });
 
@@ -66,7 +68,7 @@ const getUserChat = asyncHandler(async (req, res) => {
   }).populate("messages");
 
   if (!chats || chats.length === 0) {
-    throw new ApiError(404, "No chats found");
+    return new ApiResponse(301, "No chat found");
   }
 
   const senderIdList = chats.flatMap((chat) =>

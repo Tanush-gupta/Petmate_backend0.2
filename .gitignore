@@ -1,0 +1,4 @@
+# Ignore dependencies, build output, coverage reports, public assets, and environment variables
+node_modules
+public
+.env

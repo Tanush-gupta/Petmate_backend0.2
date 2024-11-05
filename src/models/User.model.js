@@ -14,23 +14,17 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  favourites: {
-    type: Array,
-    default: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Pet",
-      },
-    ],
-  },
-  myPets: {
-    type: Array,
-    default: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Pet",
-      },
-    ],
-  },
+  favourites: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Pet",
+    },
+  ],
+  myPets: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Pet",
+    },
+  ],
 });
 export default mongoose.model("User", userSchema);

@@ -49,12 +49,17 @@ const removefromFavourite = asyncHandler(async (req, res) => {
 });
 
 const getFavourites = asyncHandler(async (req, res) => {
+  console.log("Request body:", req.body); // Log the request body
   const { userId } = req.body;
+  if (!userId) {
+    throw new ApiError(400, "User id is required");
+  }
   const user =
     (await User.findById(userId).populate("favourites").select("favourites")) ||
     [];
 
   const response = new ApiResponse(200, user, "Favourite pets fetched");
+  // console.log("Response:", response.data.favourites);
   return res.status(200).json(response);
 });
 

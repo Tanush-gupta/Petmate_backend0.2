@@ -6,15 +6,7 @@ const chatSchema = new mongoose.Schema({
     required: true,
     default: [],
   },
-  messages: {
-    type: Array,
-    default: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Message",
-      },
-    ],
-  },
+  messages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Message" }],
 });
 
 export default mongoose.model("Chat", chatSchema);

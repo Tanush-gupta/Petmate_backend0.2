@@ -7,7 +7,7 @@ import {
 
 const router = Router();
 router.route("/addMessage").post(addMessage);
-router.route("/getAllMessages").get(getAllMessages);
-router.route("/getUserChat").get(getUserChat);
+router.route("/getAllMessages").post(getAllMessages);
+router.route("/getUserChat").post(getUserChat);
 
 export default router;
